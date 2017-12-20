@@ -24,6 +24,14 @@ module Spec
             'cat'
           end
         end
+
+        get ':id/owners' do
+          %w(owner1 owner2)
+        end
+
+        get ':id/owners/:owner_id' do
+          'owner'
+        end
       end
 
       route :any, '*path' do

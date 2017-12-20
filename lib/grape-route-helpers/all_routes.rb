@@ -5,7 +5,9 @@ module GrapeRouteHelpers
   module AllRoutes
     def decorated_routes
       # memoize so that construction of decorated routes happens once
-      @decorated_routes ||= all_routes.map { |r| DecoratedRoute.new(r) }
+      @decorated_routes ||= all_routes
+                            .map { |r| DecoratedRoute.new(r) }
+                            .sort_by { |r| -r.dynamic_path_segments.count }
     end
 
     def all_routes

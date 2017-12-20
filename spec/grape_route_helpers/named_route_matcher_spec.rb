@@ -148,6 +148,14 @@ describe GrapeRouteHelpers::NamedRouteMatcher do
         index_path = api_v1_cats_path
         expect(index_path).to eq('/api/v1/cats.json')
       end
+
+      it 'does not get shadowed by another route with less segments' do
+        show_path = api_v1_cats_owners_path('id' => 1)
+        expect(show_path).to eq('/api/v1/cats/1/owners.json')
+
+        show_path = api_v1_cats_owners_path('id' => 1, 'owner_id' => 1)
+        expect(show_path).to eq('/api/v1/cats/1/owners/1.json')
+      end
     end
 
     context 'when query params are passed in' do
